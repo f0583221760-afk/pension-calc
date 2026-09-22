@@ -328,6 +328,7 @@ export default function PensionGapCalculator() {
   const [showFastTooltip, setShowFastTooltip] = useState(false);
   const [shakeButton, setShakeButton] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
   const noteCardRefs = useRef([]);
 
   // --- Iframe auto-resize ---
@@ -1447,6 +1448,7 @@ export default function PensionGapCalculator() {
                           handleLeadSubmit={handleLeadSubmit}
                           submitHover={submitHover}
                           setSubmitHover={setSubmitHover}
+                          onOpenTerms={() => setShowTerms(true)}
                         />
                       </div>
                     )}
@@ -1677,6 +1679,7 @@ export default function PensionGapCalculator() {
                     handleLeadSubmit={handleLeadSubmit}
                     submitHover={submitHover}
                     setSubmitHover={setSubmitHover}
+                    onOpenTerms={() => setShowTerms(true)}
                   />
                 </div>
               )}
@@ -1684,13 +1687,155 @@ export default function PensionGapCalculator() {
               {/* Legal Disclaimer */}
               <div style={{ padding: "16px", background: "rgba(110, 116, 136, 0.05)", borderRadius: 8, marginBottom: 24, border: `1px solid ${BORDER}` }}>
                 <p style={{ fontSize: 12, color: TEXT_MUTED, lineHeight: 1.5, margin: 0, textAlign: "justify" }}>
-                  <strong>הבהרה משפטית:</strong> התוצאות וההערות המוצגות במחשבון הן הערכה כללית ואוטומטית בלבד, המבוססת על הנתונים שהזנתם ועל הנחות יסוד ממוצעות שאינן מובטחות. המידע <strong>אינו מהווה ייעוץ פנסיוני, ייעוץ השקעות או ייעוץ מס</strong> המותאם לנתוניו וצרכיו האישיים של המשתמש, ואינו תחליף לבחינה מקצועית. השירות ניתן על ידי <strong>אפקטיב פיננסים ופרישה - מבית רינג סוכנות לביטוח בע״מ (ח.פ 517031928)</strong>, הפועלת כסוכנות ביטוח העוסקת בשיווק פנסיוני (ולא בייעוץ) ולה זיקה למוצרים פנסיוניים. אין לבצע פעולות פיננסיות על בסיס נתונים אלו ללא התייעצות עם בעל רישיון. <a href="/calculator-terms" target="_blank" style={{ color: TEXT_MUTED, textDecoration: "underline" }}>לפירוט ההנחות ותנאי השימוש המלאים</a>.
+                  <strong>הבהרה משפטית:</strong> התוצאות וההערות המוצגות במחשבון הן הערכה כללית ואוטומטית בלבד, המבוססת על הנתונים שהזנתם ועל הנחות יסוד ממוצעות שאינן מובטחות. המידע <strong>אינו מהווה ייעוץ פנסיוני, ייעוץ השקעות או ייעוץ מס</strong> המותאם לנתוניו וצרכיו האישיים של המשתמש, ואינו תחליף לבחינה מקצועית. השירות ניתן על ידי <strong>אפקטיב פיננסים ופרישה - מבית רינג סוכנות לביטוח בע״מ (ח.פ 517031928)</strong>, הפועלת כסוכנות ביטוח העוסקת בשיווק פנסיוני (ולא בייעוץ) ולה זיקה למוצרים פנסיוניים. אין לבצע פעולות פיננסיות על בסיס נתונים אלו ללא התייעצות עם בעל רישיון.{" "}
+                  <button
+                    type="button"
+                    onClick={() => setShowTerms(true)}
+                    style={{
+                      color: TEXT_MUTED,
+                      textDecoration: "underline",
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      margin: 0,
+                      font: "inherit",
+                      cursor: "pointer",
+                    }}
+                  >
+                    לפירוט ההנחות ותנאי השימוש המלאים
+                  </button>
+                  .
                 </p>
               </div>
             </div>
           </div>
         )}
       </div>
+
+      {showTerms && (
+        <div
+          onClick={() => setShowTerms(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(21, 30, 69, 0.6)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 16,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: "relative",
+              background: "#FFFFFF",
+              borderRadius: 12,
+              width: "100%",
+              maxWidth: 640,
+              maxHeight: "80vh",
+              overflowY: "auto",
+              boxShadow: "0 20px 60px rgba(21, 30, 69, 0.35)",
+              padding: "24px 28px",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setShowTerms(false)}
+              aria-label="סגירה"
+              style={{
+                position: "sticky",
+                top: 0,
+                float: "left",
+                marginInlineStart: 12,
+                background: FIELD_BG,
+                border: `1px solid ${BORDER}`,
+                borderRadius: "50%",
+                width: 32,
+                height: 32,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                color: TEXT_MUTED,
+                zIndex: 1,
+              }}
+            >
+              <X size={18} />
+            </button>
+
+            <h2 style={{ fontSize: 18, fontWeight: 800, color: NAVY, margin: "0 0 16px", lineHeight: 1.5 }}>
+              תנאי שימוש, הבהרה משפטית ומדיניות פרטיות – מחשבון פער הפנסיה
+            </h2>
+
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: NAVY, margin: "20px 0 8px" }}>1. מהות המחשבון והיעדר ייעוץ</h3>
+            <p style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, margin: "0 0 10px", textAlign: "justify" }}>
+              המחשבון נועד לשמש ככלי עזר והמחשה ראשונית בלבד, במטרה לתת אינדיקציה כללית לגבי מצב החיסכון הפנסיוני. התוצאות, ההערות והתובנות המוצגות במחשבון מופקות באופן אוטומטי על בסיס הנתונים שהוזנו והנחות אקטואריות ממוצעות, ללא בחינה אנושית או מקצועית.
+            </p>
+            <p style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, margin: "0 0 10px", textAlign: "justify" }}>
+              המידע במחשבון <strong>אינו מהווה ייעוץ פנסיוני, שיווק פנסיוני מותאם אישית, ייעוץ השקעות או ייעוץ מס</strong>, ואינו מהווה תחליף לבחינה מקצועית הבוחנת את מכלול הנתונים והצרכים האישיים שלכם. אין לבצע פעולה פיננסית (לרבות ניוד, פדיון או שינוי מסלול) על סמך המחשבון ללא התייעצות עם בעל רישיון כדין.
+            </p>
+
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: NAVY, margin: "20px 0 8px" }}>2. גילוי נאות וזיקה</h3>
+            <p style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, margin: "0 0 10px", textAlign: "justify" }}>
+              המחשבון מופעל על ידי <strong>אפקטיב פיננסים ופרישה - מבית רינג סוכנות לביטוח בע״מ (ח.פ 517031928)</strong>.
+            </p>
+            <p style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, margin: "0 0 10px", textAlign: "justify" }}>
+              החברה פועלת כסוכנות ביטוח העוסקת בשיווק פנסיוני (כמשמעותו בחוק הפיקוח על שירותים פיננסיים) ואינה עוסקת בייעוץ פנסיוני אובייקטיבי.
+            </p>
+            <p style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, margin: "0 0 10px", textAlign: "justify" }}>
+              לחברה יש זיקה למוצרים פיננסיים ופנסיוניים של הגופים המוסדיים השונים, והיא עשויה להעדיף שיווק מוצרים של גופים אלו ולקבל בגינם עמלות שיווק.
+            </p>
+
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: NAVY, margin: "20px 0 8px" }}>3. הנחות החישוב</h3>
+            <p style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, margin: "0 0 8px", textAlign: "justify" }}>
+              החישוב מתבסס על מודל אקטוארי כללי וכולל בין היתר את ההנחות הבאות (שאינן מובטחות):
+            </p>
+            <ul style={{ margin: "0 0 10px", paddingInlineStart: 20, display: "flex", flexDirection: "column", gap: 6 }}>
+              <li style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, textAlign: "justify" }}>
+                תשואה שנתית ריאלית משוערת: 7.5% על רכיב המניות ו-4.5% על שאר הרכיבים.
+              </li>
+              <li style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, textAlign: "justify" }}>
+                דמי ניהול: נלקחו בחשבון דמי ניהול ממוצעים של 0.8% מצבירה בביטוחי המנהלים. בשאר המוצרים הונח כי דמי הניהול כבר מגולמים.
+              </li>
+              <li style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, textAlign: "justify" }}>
+                מקדמי המרה: קצבת הפנסיה מחושבת לפי מקדם 200 בקרן פנסיה, ובביטוחי מנהלים לפי המקדם שהוזן או לפי שנת תחילת העבודה.
+              </li>
+              <li style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, textAlign: "justify" }}>
+                קצבת אזרח ותיק: הונחה קצבה ממוצעת של 2,600 ₪, אך בפועל היא תלויה בתקופת הביטוח, מצב משפחתי ומבחן הכנסות של ביטוח לאומי.
+              </li>
+              <li style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, textAlign: "justify" }}>
+                החישוב אינו לוקח בחשבון שיקולי מיסוי, פטורים ממס, קיבוע זכויות או אובדן כיסויים ביטוחיים עקב ניוד.
+              </li>
+            </ul>
+
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: NAVY, margin: "20px 0 8px" }}>4. מדיניות פרטיות ואיסוף מידע</h3>
+            <p style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, margin: "0 0 8px", textAlign: "justify" }}>
+              בעת השארת פרטים במחשבון, אתם מסכימים למסור לחברה את שמכם, מספר הטלפון שלכם, ואת הנתונים הפיננסיים שהזנתם במחשבון.
+            </p>
+            <ul style={{ margin: "0 0 10px", paddingInlineStart: 20, display: "flex", flexDirection: "column", gap: 6 }}>
+              <li style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, textAlign: "justify" }}>
+                <strong>מטרת איסוף המידע:</strong> המידע נאסף ונשמר במערכות החברה (לרבות שירותי ענן ו-CRM) לצורך יצירת קשר עמכם ותיאום שיחת מיפוי.
+              </li>
+              <li style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, textAlign: "justify" }}>
+                אינכם מחויבים על פי חוק למסור מידע זה, אך ללא מסירתו לא נוכל ליצור עמכם קשר.
+              </li>
+              <li style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, textAlign: "justify" }}>
+                המידע לא יועבר לצדדים שלישיים לצרכים מסחריים, למעט לספקי שירות טכנולוגיים של החברה (כגון מערכות דיוור וניהול לידים) לצורך מתן השירות בלבד.
+              </li>
+              <li style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, textAlign: "justify" }}>
+                <strong>זכות העיון:</strong> באפשרותכם לבקש לעיין במידע שנשמר אודותיכם, לתקנו או לבקש את מחיקתו, באמצעות פנייה לחברה.
+              </li>
+            </ul>
+
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: NAVY, margin: "20px 0 8px" }}>5. הגבלת אחריות</h3>
+            <p style={{ fontSize: 13.5, color: TEXT_MAIN, lineHeight: 1.7, margin: "0 0 4px", textAlign: "justify" }}>
+              השימוש במחשבון ניתן "כמות שהוא" (As-Is) והוא באחריותכם הבלעדית. ככל שהדין מתיר זאת, החברה לא תישא בכל אחריות לנזק, הפסד, חסרון כיס או אובדן זכויות שייגרמו כתוצאה מהסתמכות על תוצאות המחשבון או על התובנות המופקות ממנו.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -2013,6 +2158,7 @@ function LeadFormCard({
   handleLeadSubmit,
   submitHover,
   setSubmitHover,
+  onOpenTerms,
 }) {
   // Honeypot spam protection: a hidden field only a bot would fill in.
   const [honeypot, setHoneypot] = useState("");
@@ -2064,7 +2210,25 @@ function LeadFormCard({
           style={{ accentColor: PURPLE, marginTop: 2, flexShrink: 0 }}
         />
         <span style={{ fontSize: 12, color: TEXT_MUTED, lineHeight: 1.4 }}>
-          אני מאשר/ת למסור את הפרטים והנתונים הפיננסיים שהזנתי לצורך יצירת קשר ותיאום שיחת מיפוי פנסיוני, בהתאם ל<a href="/calculator-terms" target="_blank" style={{ color: PURPLE, textDecoration: "underline" }}>תנאי השימוש ומדיניות הפרטיות</a>.
+          אני מאשר/ת למסור את הפרטים והנתונים הפיננסיים שהזנתי לצורך יצירת קשר ותיאום שיחת מיפוי פנסיוני, בהתאם ל
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.preventDefault();
+              onOpenTerms && onOpenTerms();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onOpenTerms && onOpenTerms();
+              }
+            }}
+            style={{ color: PURPLE, textDecoration: "underline", cursor: "pointer" }}
+          >
+            תנאי השימוש ומדיניות הפרטיות
+          </span>
+          .
         </span>
       </label>
 
