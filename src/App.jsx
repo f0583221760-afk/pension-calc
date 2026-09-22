@@ -156,7 +156,8 @@ const cfg = {
       "השאירו פרטים, ומומחה פיננסי מאפקטיב יוציא עבורכם דוח מסלקה מלא. ינתח את הנתונים, יחשב את תמונת המצב המדויקת, ויציג לכם צעדים מעשיים להגדלת הפנסיה.",
     nameField: "שם מלא",
     phoneField: "מספר טלפון נייד",
-    consentText: "אני מאשר/ת לקבל שיחת ייעוץ, ומוסכם עליי שפרטיי יישמרו בדיסקרטיות מלאה.",
+    consentText:
+      "אני מאשר/ת למסור את הפרטים והנתונים הפיננסיים שהזנתי לצורך יצירת קשר ותיאום שיחת מיפוי פנסיוני, בהתאם לתנאי השימוש ומדיניות הפרטיות.", // kept in sync for reference; LeadFormCard now renders its own JSX span with a live link instead of reading this string directly (see below)
     submitBtn: "תאמו לי שיחת מיפוי אישית",
     successTitle: "✓ הפרטים אצלנו",
     successBody: "בקרוב המומחים שלנו ייצרו איתכם קשר כדי לתאם זמן שנוח לכם. עד אז, אתם מוזמנים להמשיך לשחק עם המחשבון ולבחון תרחישים שונים.",
@@ -164,7 +165,7 @@ const cfg = {
   limitations: {
     title: "החישוב המוצג לא כולל",
     items: [
-      "דמי ניהול מהפקדה ומצבירה בפועל",
+      "דמי ניהול מהפקדה ומצבירה בפועל (למעט הנחה כללית של 0.8% מצבירה בביטוחי מנהלים, שנלקחה בחשבון בחישוב)",
       "רציפות ההפרשה ההיסטורית והעתידית",
       "עליית שכר עתידית",
       "זכויות פטור ממס בפרישה וקיבוע זכויות",
@@ -842,7 +843,7 @@ export default function PensionGapCalculator() {
         type: "warning",
         icon: <Landmark size={18} color={WARNING_TEXT} />,
         title: "חיסכון יקר דרך הבנק",
-        text: `מודל התמחור הבנקאי מבוסס על עמלות מסחר ודמי משמרת שנוגסים באופן עקבי בתשואה שלכם, במקום שהכסף ינוהל בשקיפות וביעילות בפלטפורמות פיננסיות מודרניות. לאורך זמן, העלויות האלו פוגעות משמעותית בפוטנציאל הצמיחה של הכסף.`,
+        text: `מודל התמחור הבנקאי מבוסס על עמלות מסחר ודמי משמרת שנוגסים באופן עקבי בתשואה שלכם, במקום שהכסף ינוהל בשקיפות וביעילות בפלטפורמות פיננסיות מודרניות. לאורך זמן, העלויות האלו עלולות לפגוע משמעותית בפוטנציאל הצמיחה של הכסף.`,
         impact: 1,
       });
     }
@@ -897,7 +898,7 @@ export default function PensionGapCalculator() {
           type: "warning",
           icon: <FileWarning size={18} color={WARNING_TEXT} />,
           title: "כפילות בביטוח הוותיק",
-          text: `מצבכם הפנסיוני מצוין, מה שמעלה שאלה אסטרטגית: האם נכון להמשיך לשלם דמי ניהול יקרים על פוליסת המנהלים? כשהקצבה הבסיסית מובטחת ממקורות אחרים, אולי כדאי לייעל את התיק למוצרים חסכוניים יותר.`,
+          text: `מצבכם הפנסיוני מצוין, מה שמעלה שאלה אסטרטגית: האם נכון להמשיך לשלם דמי ניהול יקרים על פוליסת המנהלים? כשהקצבה הבסיסית מובטחת ממקורות אחרים, שווה לבדוק אפשרות לייעל את התיק למוצרים חסכוניים יותר.`,
           impact: oldAmount,
         });
       }
@@ -1592,6 +1593,13 @@ export default function PensionGapCalculator() {
                 </div>
               )}
 
+              {/* Legal Disclaimer */}
+              <div style={{ padding: "16px", background: "rgba(110, 116, 136, 0.05)", borderRadius: 8, marginBottom: 24, border: `1px solid ${BORDER}` }}>
+                <p style={{ fontSize: 12, color: TEXT_MUTED, lineHeight: 1.5, margin: 0, textAlign: "justify" }}>
+                  <strong>הבהרה משפטית:</strong> התוצאות וההערות המוצגות במחשבון הן הערכה כללית ואוטומטית בלבד, המבוססת על הנתונים שהזנתם ועל הנחות יסוד ממוצעות שאינן מובטחות. המידע <strong>אינו מהווה ייעוץ פנסיוני, ייעוץ השקעות או ייעוץ מס</strong> המותאם לנתוניו וצרכיו האישיים של המשתמש, ואינו תחליף לבחינה מקצועית. החברה פועלת כסוכנות ביטוח העוסקת בשיווק פנסיוני (ולא בייעוץ) ולה זיקה למוצרים פנסיוניים. אין לבצע פעולות פיננסיות על בסיס נתונים אלו ללא התייעצות עם בעל רישיון. <a href="/calculator-terms" target="_blank" style={{ color: TEXT_MUTED, textDecoration: "underline" }}>לפירוט ההנחות ותנאי השימוש המלאים</a>.
+                </p>
+              </div>
+
               {(() => {
                   const dreamBullets = [];
                   if (result.gapPercent > 0 && result.hasExplicitExposureData) {
@@ -2055,7 +2063,9 @@ function LeadFormCard({
           onChange={(e) => setLeadConsent(e.target.checked)}
           style={{ accentColor: PURPLE, marginTop: 2, flexShrink: 0 }}
         />
-        <span style={{ fontSize: 12, color: TEXT_MUTED, lineHeight: 1.5 }}>{cfg.leadForm.consentText}</span>
+        <span style={{ fontSize: 12, color: TEXT_MUTED, lineHeight: 1.4 }}>
+          אני מאשר/ת למסור את הפרטים והנתונים הפיננסיים שהזנתי לצורך יצירת קשר ותיאום שיחת מיפוי פנסיוני, בהתאם ל<a href="/calculator-terms" target="_blank" style={{ color: PURPLE, textDecoration: "underline" }}>תנאי השימוש ומדיניות הפרטיות</a>.
+        </span>
       </label>
 
       {leadError && (
