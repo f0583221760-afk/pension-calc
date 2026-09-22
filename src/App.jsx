@@ -1593,13 +1593,6 @@ export default function PensionGapCalculator() {
                 </div>
               )}
 
-              {/* Legal Disclaimer */}
-              <div style={{ padding: "16px", background: "rgba(110, 116, 136, 0.05)", borderRadius: 8, marginBottom: 24, border: `1px solid ${BORDER}` }}>
-                <p style={{ fontSize: 12, color: TEXT_MUTED, lineHeight: 1.5, margin: 0, textAlign: "justify" }}>
-                  <strong>הבהרה משפטית:</strong> התוצאות וההערות המוצגות במחשבון הן הערכה כללית ואוטומטית בלבד, המבוססת על הנתונים שהזנתם ועל הנחות יסוד ממוצעות שאינן מובטחות. המידע <strong>אינו מהווה ייעוץ פנסיוני, ייעוץ השקעות או ייעוץ מס</strong> המותאם לנתוניו וצרכיו האישיים של המשתמש, ואינו תחליף לבחינה מקצועית. החברה פועלת כסוכנות ביטוח העוסקת בשיווק פנסיוני (ולא בייעוץ) ולה זיקה למוצרים פנסיוניים. אין לבצע פעולות פיננסיות על בסיס נתונים אלו ללא התייעצות עם בעל רישיון. <a href="/calculator-terms" target="_blank" style={{ color: TEXT_MUTED, textDecoration: "underline" }}>לפירוט ההנחות ותנאי השימוש המלאים</a>.
-                </p>
-              </div>
-
               {(() => {
                   const dreamBullets = [];
                   if (result.gapPercent > 0 && result.hasExplicitExposureData) {
@@ -1687,6 +1680,13 @@ export default function PensionGapCalculator() {
                   />
                 </div>
               )}
+
+              {/* Legal Disclaimer */}
+              <div style={{ padding: "16px", background: "rgba(110, 116, 136, 0.05)", borderRadius: 8, marginBottom: 24, border: `1px solid ${BORDER}` }}>
+                <p style={{ fontSize: 12, color: TEXT_MUTED, lineHeight: 1.5, margin: 0, textAlign: "justify" }}>
+                  <strong>הבהרה משפטית:</strong> התוצאות וההערות המוצגות במחשבון הן הערכה כללית ואוטומטית בלבד, המבוססת על הנתונים שהזנתם ועל הנחות יסוד ממוצעות שאינן מובטחות. המידע <strong>אינו מהווה ייעוץ פנסיוני, ייעוץ השקעות או ייעוץ מס</strong> המותאם לנתוניו וצרכיו האישיים של המשתמש, ואינו תחליף לבחינה מקצועית. השירות ניתן על ידי <strong>אפקטיב פיננסים ופרישה - מבית רינג סוכנות לביטוח בע״מ (ח.פ 517031928)</strong>, הפועלת כסוכנות ביטוח העוסקת בשיווק פנסיוני (ולא בייעוץ) ולה זיקה למוצרים פנסיוניים. אין לבצע פעולות פיננסיות על בסיס נתונים אלו ללא התייעצות עם בעל רישיון. <a href="/calculator-terms" target="_blank" style={{ color: TEXT_MUTED, textDecoration: "underline" }}>לפירוט ההנחות ותנאי השימוש המלאים</a>.
+                </p>
+              </div>
             </div>
           </div>
         )}
