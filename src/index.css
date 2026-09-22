@@ -1,0 +1,19 @@
+/* Iframe-friendly reset: no outer margin/border/centering constraints so the calculator
+   fills whatever <iframe> element it's embedded in on the WordPress/Elementor page. */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  direction: rtl;
+  min-height: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
